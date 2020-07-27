@@ -19,14 +19,11 @@ html {
   }
 }
 
-.App-header {
+.App{
   background-image: linear-gradient(to bottom right, 	#C0C0C0, white);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  
+
   color: white;
 }
 

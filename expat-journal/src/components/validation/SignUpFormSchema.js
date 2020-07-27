@@ -4,11 +4,11 @@ import * as yup from 'yup'
 const signUpSchema = yup.object().shape({
    fname: yup.string()
     .trim()   
-        .min(4, "Must be at least 4 characters")
+        .min(2, "Must be at least 2 characters")
         .required("Username is required"),
     lname: yup.string()
         .trim()   
-            .min(4, "Must be at least 4 characters")
+            .min(2, "Must be at least 2 characters")
             .required("Username is required"),
   username: yup.string()
   .trim()   

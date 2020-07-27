@@ -6,3 +6,18 @@ button{
     border: none;
     background-color: rgb(121, 115, 121);
 }
+.error{
+    color:white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size:  2rem;
+}
+.form-wrap {
+    border: 1px solid rgb(109, 104, 104);
+    width: 50%;
+    margin: 10% auto;
+    padding: 2%;
+    color: white;
+    background-color: #918f8f ;
+    box-shadow: 10px 10px 20px 10px rgb(170, 164, 164)
+    
+}

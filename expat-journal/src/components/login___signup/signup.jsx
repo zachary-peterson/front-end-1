@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import * as yup  from 'yup';
 import signUpSchema from '../validation/SignUpFormSchema'
+import './signup.css'
 
 const initialVal = {
     first_name: "",
@@ -48,38 +49,42 @@ function SignUp() {
 };
 
     return (
-        <div>
+        <div className="form-wrap">
+            <h3>Sign Up</h3>
 <label htmlFor="fname">First Name: &nbsp;</label>
 <input 
 name="fname"
 type="text" 
 onChange={onInputChange}/>
-<div>{formErrors.fname}</div>
+<span>{formErrors.fname}</span>
 <label htmlFor="lname">Last  Name: &nbsp;</label>
 <input 
 name="lname"
 type="text" />
-<div>{formErrors.lname}</div>
+<span>{formErrors.lname}</span>
+<p>
 <label htmlFor="fname">Email: &nbsp;</label>
 <input 
 name="email"
 type="email" />
-<div>{formErrors.email}</div>
+<span>{formErrors.email}</span>
 <label htmlFor="fname">Location: &nbsp;</label>
 <input 
 name="Location"
 type="text" />
-<div>{formErrors.location}</div>
+<span>{formErrors.location}</span> 
+</p>
 <label htmlFor="username">Username: &nbsp;</label><input 
 name="username"
 type="text" />
-<div>{formErrors.username}</div>
+<span>{formErrors.username}</span>
 <label htmlFor="password">Password: &nbsp;</label>
 <input 
 name="password"
 type="password" />
-<div>{formErrors.password}</div>
-<button>Submit</button>
+<span>{formErrors.password}</span>
+<p> <button>Sign Up</button></p>
+
         </div>
     )
 }
