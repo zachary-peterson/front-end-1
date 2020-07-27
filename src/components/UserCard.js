@@ -4,7 +4,10 @@ import { Jumbotron } from 'reactstrap';
 const UserCard = () => {
     return (
         <div>
-            <Jumbotron>Hello</Jumbotron>
+            <Jumbotron>
+                <img src='https://source.unsplash.com/random/300x300' />
+                <h2>Title</h2>
+            </Jumbotron>
         </div>
     )
 }

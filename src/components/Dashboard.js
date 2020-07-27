@@ -4,7 +4,7 @@ import UserCard from './UserCard';
 const Dashboard = () => {
     return (
         <div>
-            <UserCard />
+            
         </div>
     )
 }
