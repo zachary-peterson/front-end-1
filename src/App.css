@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
 .App {
   text-align: center;
+  font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+  
 }
 
 .App-logo {
@@ -13,15 +16,16 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
+.App{
+  background-image: url("https://images.unsplash.com/photo-1503457574462-bd27054394c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80");
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+
   color: white;
+font-family: 'Lato';
 }
 
 .App-link {
@@ -35,4 +39,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+.nav-wrap{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+}
+.nav-wrap a {
+  text-decoration: none;
+  color: rgb(81, 32, 128);
+  font-size: 2rem;
+  font-family: 'Courier'
+  
 }
