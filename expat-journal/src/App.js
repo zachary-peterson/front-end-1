@@ -3,7 +3,7 @@ import './App.css';
 import Login from './components/login___signup/login'
 import {Switch, Route, useHistory} from 'react-router-dom'
 import Nav from "./components/navBar"
-import SignUp from './components/login___signup/signup';
+
 
 function App() {
   return (
@@ -11,9 +11,7 @@ function App() {
       <Nav />
       <Route path="/login">
       <Login />
-</Route>
-    <Route path='/signup'>
-      <SignUp />
+
     </Route>
     </div>
   );

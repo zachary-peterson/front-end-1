@@ -1,11 +1,37 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import loginSchema from '../validation/loginFormSchema'
 import * as yup  from 'yup';
 import Nav from '../navBar'
 import './Login.css'
+import styled from 'styled-components'
 
+const LoginDiv = styled.form `
 
+    display: flex;
+    flex-direction: column;
+    margin: 0% 36% 20%;
+    height: 60%;
+    background: rgba(55, 90, 66, 0.616);
+    padding-top: 4.5%;
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+
+`
+const Input = styled.input`
+padding: 1%;
+margin: 1% auto;
+border-radius: 10px;
+border: none;
+background-color: rgb(231, 226, 226);
+`
+const Button = styled.button`
+border: 1px solid rgb(172, 189, 178);
+color: white;
+text-decoration: none;
+background: rgb(68, 104, 82);
+width: 15%;
+height: 2rem;
+`
 const initialVal = {
     username: "",
     password:""
@@ -45,14 +71,26 @@ const onInputChange = e => {
         [name]: value,
     });
 };
+const onSubmit = e => {
+    e.preventDefault();
+    const user = {
+        username: formValues.username.trim(),
+        password: formValues.password.trim(),
+    };
+}
+useEffect(() => {
+    loginSchema.isValid(formValues).then(valid => {
+        setDisabled(!valid);
+    });
+}, [formValues]);
 
 
 
     return (
         <div>
-            <div className="login-wrap">
+            <LoginDiv onSubmit={onSubmit}>
                 <div id="login-head">
-                    <h2>Log In</h2>
+                    <h1>Log In</h1>
                 </div>
                 <div id="login-body">
        <label htmlFor="username">Username: &nbsp; </label>
@@ -69,9 +107,9 @@ const onInputChange = e => {
          name="password"
          />
          <div className="error">{formErrors.password}</div>
-         <p><button>Submit</button></p>
+         <p><Button>Submit</Button></p>
          </div>
-         </div>
+         </LoginDiv>
         </div>
     )
 }

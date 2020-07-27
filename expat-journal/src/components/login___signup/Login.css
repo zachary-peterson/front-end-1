@@ -1,30 +1,16 @@
-.login-wrap {
-    border: 1px solid rgb(109, 104, 104);
-    width: 50%;
-    margin: 10% auto;
-    padding: 2%;
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
+.form-wrap a{
+  text-align: center;
+font-family: "Times New Roman";  
+}
+#login{
+    text-decoration: none;
     color: white;
-    background-color: #918f8f ;
-    box-shadow: 10px 10px 20px 10px rgb(170, 164, 164)
-    
 }
-
-input{
-    padding: 1%;
-    margin: 1% auto;
-    border-radius: 10px;
-    border: none;
-    background-color: rgb(231, 226, 226);
-
-}
-
-button{
-    padding: 2%;
+#home{
     color: white;
-    font-family: 'Courier New', Courier, monospace;
-    border: none;
-    background-color: rgb(121, 115, 121);
 }
+
 .error{
     color:white;
     font-family: 'Times New Roman', Times, serif;
