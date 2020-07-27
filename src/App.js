@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
+import Dashboard from './components/Dashboard';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <h2>Ex-pat Journal</h2>
+      <Dashboard />
     </div>
   );
 }
