@@ -1,9 +1,9 @@
 import React, {useState,useEffect} from 'react'
 import axios from 'axios'
-import loginSchema from '../validation/loginFormSchema'
+import loginSchema from '../../validation/loginFormSchema'
 import * as yup  from 'yup';
-import Nav from '../navBar'
-import './Login.css'
+import Nav from '../Nav';
+import './Login.css';
 import styled from 'styled-components'
 
 const LoginDiv = styled.form `
