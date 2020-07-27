@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import '../App.css'
 import styled from 'styled-components'
 import Login from '../components/login/Login.js';
+import Dashboard from './Dashboard';
 
 const NavWrap = styled.div`
 margin-left: 65%;
@@ -34,11 +35,12 @@ const Button = styled.button`
 function Nav() {
     return(
         <div>
-            <NavWrap className="form-wrap">
-        <NavLink  id ="home" href="https://expactmarketing.netlify.app/#main">Home</NavLink>
-        <Link  id ="login" exact to ='/login'>Login</Link>
-        <Button href ='/signup'>signup</Button>
-</NavWrap>
+        <NavWrap className="form-wrap">
+            <NavLink id ="home" href="https://expactmarketing.netlify.app/#main">Home</NavLink>
+            <Link id='home' to='/dashboard'>Main Page</Link>
+            <Link id ="login" exact to ='/'>Login</Link>
+            <Button href ='/signup'>Signup</Button>
+        </NavWrap>
 
         </div>
     )
