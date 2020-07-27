@@ -4,7 +4,7 @@ import { Jumbotron } from 'reactstrap';
 const UserCard = () => {
     return (
         <div>
-            <h2>fdsfs</h2>
+            <Jumbotron>Hello</Jumbotron>
         </div>
     )
 }
