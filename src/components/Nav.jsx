@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import '../App.css'
 import styled from 'styled-components'
-import '../components/login/Login.css'
+import Login from '../components/login/Login.js';
 
 const NavWrap = styled.div`
 margin-left: 65%;
