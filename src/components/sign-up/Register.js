@@ -1,18 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import styled from 'styled-components';
 import registerFormSchema from '../../validation/registerFormSchema'
-import axiosWithAuth from '../../utils/axiosWithAuth';
+
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+import { fetchData } from '../../action/action'
+import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 const initialVal = {
-    user_name:'',
-    password:'',
-};
+    name: '',
+    username:'',
+}
 
 const initialErrors = {
-    user_name: '',
-    password: '',
+
+    name: '',
+    username: '',
+
 };
 
 const StyledContainer = styled.form`
@@ -59,7 +66,7 @@ const StyledContainer = styled.form`
         margin-top: 2%;
         text-decoration: none;
         background: rgb(68, 104, 82);
-        width: 15%;
+        width: 25%;
         font-size: 1.75rem;
 
         &:hover {
@@ -68,21 +75,31 @@ const StyledContainer = styled.form`
     }
 `
 
-export default function Register(){
+function Register(props){
 
     const { push } = useHistory();
 
     const [user, setUser] =useState([]);
     const [formValues, setForm]=useState(initialVal);
     const [formErrors, setErrors]=useState(initialErrors);
+    const { push } = useHistory()
+
+    // useEffect(()=> {
+    //     // get request for user data with redux 
+    //     props.fetchData()
+    // }, [])
 
     const onInputChange = e => {
-        const { name, value } = e.target;
+       const { name, value } = e.target
+        setUser({
+            ...newUser,
+            [name]: value
+        })
     
         yup
             .reach(registerFormSchema, name)
             .validate(value)
-            .then(valid => {
+            .then(() => {
                 setErrors({
                     ...formErrors,
                     [name]: "",
@@ -100,16 +117,32 @@ export default function Register(){
         });
     };
 
-    const onSubmit = event => {
-        event.preventDefault()
-        console.log(formValues)
+
+    const newUserSubmit = e => {
+        e.preventDefault()
         axiosWithAuth()
-        .post('/users/register', formValues)
-        .then(response => {
-            console.log(response)
-            push('/dashboard')
+        .post(`https://expat-journal-web31.herokuapp.com/api/auth/register`, formValues)
+        .then(res => {
+            setUser(res.data)
+            console.log(res.data)
+            push('/')
         })
+        .catch(err =>{
+            console.log(err)
+        })
+
     }
+
+//     const onSubmit = event => {
+//         event.preventDefault()
+//         console.log(formValues)
+//         axiosWithAuth()
+//         .post('/users/register', formValues)
+//         .then(response => {
+//             console.log(response)
+//             push('/dashboard')
+//         })
+//     }
 
     return (
         <StyledContainer>  
@@ -118,10 +151,18 @@ export default function Register(){
         
         <table>
             
+
+        <tr>
+            <td><label htmlFor='fname'>Full Name:</label></td>
+            <td><input
+                name='name'
+                // value={newUser.name}
+
         {/* <tr>
             <td><label htmlFor='name'>Name</label></td>
             <td><input
                 name='name'
+
                 onChange={onInputChange}
                 type='text'
                 placeholder='Please enter your first name'
@@ -129,9 +170,10 @@ export default function Register(){
         </tr> */}
 
         <tr>
-            <td><label htmlFor='username'>Username:</label></td>
+            <td><label htmlFor='user_name'>Username:</label></td>
             <td><input
-                name='user_name'
+                name='username'
+                // value={newUser.username}
                 onChange={onInputChange}
                 type='text'
                 placeholder='Please enter a username'
@@ -142,6 +184,7 @@ export default function Register(){
             <td><label htmlFor='password'>Password:</label></td>
             <td><input
                 name='password'
+                // value={newUser.password}
                 onChange={onInputChange}
                 type='password'
                 placeholder='Please enter a password'
@@ -152,6 +195,7 @@ export default function Register(){
             <td><label htmlFor='email'>Email:</label></td>
             <td><input
                 name='email'
+                // value={newUser.email}
                 onChange={onInputChange}
                 type='email'
                 placeholder='Please enter an email'
@@ -163,13 +207,57 @@ export default function Register(){
             <td>
                 <select>
                     <option>Please select a location</option>
-                    <option name='location'>Africa</option>
-                    <option name='location'>Antarctica</option>
-                    <option name='location'>Asia</option>
-                    <option name='location'>Europe</option>
-                    <option name='location'>North America</option>
-                    <option name='location'>Oceania</option>
-                    <option name='location'>South America</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
                 </select>
             </td>
         </tr> */}
@@ -177,15 +265,21 @@ export default function Register(){
         </table> 
         
         <div>
-            {/* <p>{formErrors.name}</p> */}
-            <p>{formErrors.user_name}</p>
+
+            <p>{formErrors.name}</p>
+            <p>{formErrors.username}</p>
             <p>{formErrors.password}</p>
             {/* <p>{formErrors.email}</p>
             <p>{formErrors.location}</p>   */}
         </div>
         
-        <button onClick={onSubmit}>Submit</button>
-        
+
+        <button onClick={newUserSubmit} >Submit</button>
+
+//         <button onClick={onSubmit}>Submit</button>
+
         </StyledContainer>
     )
 }
+
+export default Register;

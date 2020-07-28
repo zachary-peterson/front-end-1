@@ -1,11 +1,20 @@
 import React, {useState,useEffect} from 'react'
 import loginSchema from '../../validation/loginFormSchema';
 import * as yup  from 'yup';
-import Nav from '../Nav';
-import axiosWithAuth from '../../utils/axiosWithAuth';
+
+import { Button } from '../Nav';
 import './Login.css';
 import styled from 'styled-components'
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios'
+// =======
+// import Nav from '../Nav';
+// import axiosWithAuth from '../../utils/axiosWithAuth';
+// import './Login.css';
+// import styled from 'styled-components'
+// import { useHistory } from 'react-router-dom';
+// >>>>>>> master
 
 const LoginDiv = styled.form `
 
@@ -19,19 +28,19 @@ const LoginDiv = styled.form `
 
 `
 const Input = styled.input`
-padding: 1%;
-margin: 1% auto;
-border-radius: 10px;
-border: none;
-background-color: rgb(231, 226, 226);
+    padding: 1%;
+    margin: 1% auto;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(231, 226, 226);
 `
-const Button = styled.button`
-border: 1px solid rgb(172, 189, 178);
-color: white;
-text-decoration: none;
-background: rgb(68, 104, 82);
-width: 15%;
-height: 2rem;
+const Btn = styled.button`
+    border: 1px solid rgb(172, 189, 178);
+    color: white;
+    text-decoration: none;
+    background: rgb(68, 104, 82);
+    width: 25%;
+    height: 2rem;
 `
 const initialVal = {
     username: "",
@@ -50,11 +59,18 @@ function Login() {
     // State //
 const [user, setUser] = useState([]);
 const [formErrors, setErrors] = useState(initialErrors)
-const[formValues, setFormValues] = useState(initialVal)
+const [formValues, setFormValues] = useState(initialVal)
 const [disabled, setDisabled] = useState(true)
+
+const { push } = useHistory();
 
 const onInputChange = e => {
     const { name, value } = e.target;
+    setUser({
+        ...user,
+        [name]: value
+    })
+
 
     yup
         .reach(loginSchema, name)
@@ -76,43 +92,66 @@ const onInputChange = e => {
         [name]: value,
     });
 };
-const onSubmit = e => {
-    e.preventDefault();
-}
-useEffect(() => {
-    loginSchema.isValid(formValues).then(valid => {
-        setDisabled(!valid);
-    });
-}, [formValues]);
+
+    const onSubmit = e => {
+        e.preventDefault();
+        const user = {
+            username: formValues.username.trim(),
+            password: formValues.password.trim(),
+        };
+        axiosWithAuth()
+            .post("https://expat-journal-web31.herokuapp.com/api/auth/login", formValues)
+            .then(res => {
+                console.log(res)
+                window.localStorage.setItem("token", res.data.payload);
+                push("/dashboard")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        
+    }
+
+    useEffect(() => {
+        loginSchema.isValid(formValues).then(valid => {
+            setDisabled(!valid);
+        });
+    }, [formValues]);
+
+
+
 
 
 
     return (
         <div>
-            <LoginDiv onSubmit={onSubmit}>
+            <LoginDiv>
                 <div id="login-head">
                     <h1>Log In</h1>
                 </div>
                 <div id="login-body">
-       <label htmlFor="username">Username: &nbsp; </label>
-       <input 
-       type="text"
-       name="username" 
-       placeholder='Enter a Username'
-       onChange={onInputChange}/>
-      <div className="error">{formErrors.username}</div>         
-        
- <label htmlFor="password">Password: &nbsp;</label>
-         <input 
-         type="password"
-         onChange={onInputChange}
-         name="password"
-         placeholder='Enter a Password'
-         />
-         <div className="error">{formErrors.password}</div>
-         <p><Button>Submit</Button></p>
-         </div>
-         </LoginDiv>
+
+                    <label htmlFor="user_name">Username: &nbsp; </label>
+                    <input 
+                            type="text"
+                            name="username" 
+                            onChange={onInputChange}
+                        />
+                    <div className="error">{formErrors.username}</div>         
+                        
+                    <label htmlFor="password">Password: &nbsp;</label>
+                        <input 
+                            type="password"
+                            onChange={onInputChange}
+                            name="password"
+                        />
+
+                    <div className="error">{formErrors.password}</div>
+                    <Btn><button onClick={onSubmit}>Submit</button></Btn>
+
+                </div>
+            </LoginDiv>
+
         </div>
     )
 }

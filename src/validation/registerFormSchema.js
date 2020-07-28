@@ -6,7 +6,8 @@ name: yup.string()
     .trim()   
     .min(2, "First name must be at least 2 characters")
     .required("Username is required"),
-user_name: yup.string()
+username: yup.string()
+
     .trim()   
     .min(4, "Username must be at least 4 characters")
     .required("Username is required"),
