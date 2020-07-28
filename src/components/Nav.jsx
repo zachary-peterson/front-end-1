@@ -33,13 +33,14 @@ const Button = styled.button`
 
 `
 function Nav() {
+
     return(
         <div>
         <NavWrap className="form-wrap">
             <NavLink id ="home" href="https://expactmarketing.netlify.app/#main">Home</NavLink>
-            <Link id='home' to='/dashboard'>Main Page</Link>
+            <Link id='home' exact to='/dashboard'>Main Page</Link>
             <Link id ="login" exact to ='/'>Login</Link>
-            <Button href ='/signup'>Signup</Button>
+            <Link id='login' exact to='/signup'>Register</Link>
         </NavWrap>
 
         </div>

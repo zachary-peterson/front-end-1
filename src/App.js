@@ -12,10 +12,17 @@ function App() {
   return (
     <div className="App">
       <Nav />
+    <Switch>
+      <Route exact path='/dashboard'>
+        <Dashboard />
+      </Route>
+    <Route exact path='/signup'>
+      <Register />
+    </Route>
       <Route path="/">
       <Login />
     </Route>
-    <Route exact path='/signup' component={Register} />
+    </Switch>
     </div>
   );
 }

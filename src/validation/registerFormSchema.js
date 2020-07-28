@@ -2,13 +2,9 @@ import * as yup from 'yup'
 
 
 const registerFormSchema = yup.object().shape({
-fname: yup.string()
+name: yup.string()
     .trim()   
     .min(2, "First name must be at least 2 characters")
-    .required("Username is required"),
-lname: yup.string()
-    .trim()   
-    .min(2, "Last name must be at least 2 characters")
     .required("Username is required"),
 username: yup.string()
     .trim()   

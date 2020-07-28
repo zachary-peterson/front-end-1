@@ -1,13 +1,21 @@
 import React from 'react';
-import { Jumbotron } from 'reactstrap';
+import './UserCard.css';
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
+  } from 'reactstrap';
 
 const UserCard = () => {
     return (
         <div>
-            <Jumbotron>
-                <img src='https://source.unsplash.com/random/300x300' />
-                <h2>Title</h2>
-            </Jumbotron>
+            <div>
+                <Card>
+                    <CardImg src='https://source.unsplash.com/random/300x300' />
+                    <CardTitle>Title</CardTitle>
+                    <CardText>This is text about my trip</CardText>
+                    <CardSubtitle>Location.USA</CardSubtitle>
+                </Card>
+            </div>
         </div>
     )
 }

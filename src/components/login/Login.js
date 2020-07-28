@@ -2,8 +2,10 @@ import React, {useState,useEffect} from 'react'
 import loginSchema from '../../validation/loginFormSchema';
 import * as yup  from 'yup';
 import Nav from '../Nav';
+import axiosWithAuth from '../../utils/axiosWithAuth';
 import './Login.css';
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom';
 
 const LoginDiv = styled.form `
 
@@ -41,7 +43,11 @@ const initialErrors ={
     password:""
 }
 
+
 function Login() {
+    const history = useHistory();
+    
+    // State //
 const [user, setUser] = useState([]);
 const [formErrors, setErrors] = useState(initialErrors)
 const[formValues, setFormValues] = useState(initialVal)
@@ -72,10 +78,6 @@ const onInputChange = e => {
 };
 const onSubmit = e => {
     e.preventDefault();
-    const user = {
-        username: formValues.username.trim(),
-        password: formValues.password.trim(),
-    };
 }
 useEffect(() => {
     loginSchema.isValid(formValues).then(valid => {
@@ -96,6 +98,7 @@ useEffect(() => {
        <input 
        type="text"
        name="username" 
+       placeholder='Enter a Username'
        onChange={onInputChange}/>
       <div className="error">{formErrors.username}</div>         
         
@@ -104,6 +107,7 @@ useEffect(() => {
          type="password"
          onChange={onInputChange}
          name="password"
+         placeholder='Enter a Password'
          />
          <div className="error">{formErrors.password}</div>
          <p><Button>Submit</Button></p>
