@@ -2,27 +2,24 @@ import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import styled from 'styled-components';
 import registerFormSchema from '../../validation/registerFormSchema'
+
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { fetchData } from '../../action/action'
 import { connect } from 'react-redux';
-
+import { Link, useHistory } from 'react-router-dom';
 
 const initialVal = {
     name: '',
     username:'',
-    password:'',
-    email:'',
-    location:''
-};
+}
 
 const initialErrors = {
+
     name: '',
     username: '',
-    password: '',
-    email: '',
-    location: ''
+
 };
 
 const StyledContainer = styled.form`
@@ -31,6 +28,7 @@ const StyledContainer = styled.form`
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    background: rgba(55, 90, 66, 0.616);
     width: 60%;
     font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
     border: 2px solid black;
@@ -79,7 +77,9 @@ const StyledContainer = styled.form`
 
 function Register(props){
 
-    const [newUser, setUser] =useState([]);
+    const { push } = useHistory();
+
+    const [user, setUser] =useState([]);
     const [formValues, setForm]=useState(initialVal);
     const [formErrors, setErrors]=useState(initialErrors);
     const { push } = useHistory()
@@ -117,6 +117,7 @@ function Register(props){
         });
     };
 
+
     const newUserSubmit = e => {
         e.preventDefault()
         axiosWithAuth()
@@ -131,6 +132,18 @@ function Register(props){
         })
 
     }
+
+//     const onSubmit = event => {
+//         event.preventDefault()
+//         console.log(formValues)
+//         axiosWithAuth()
+//         .post('/users/register', formValues)
+//         .then(response => {
+//             console.log(response)
+//             push('/dashboard')
+//         })
+//     }
+
     return (
         <StyledContainer>  
 
@@ -138,15 +151,23 @@ function Register(props){
         
         <table>
             
+
         <tr>
             <td><label htmlFor='fname'>Full Name:</label></td>
             <td><input
                 name='name'
                 // value={newUser.name}
+
+        {/* <tr>
+            <td><label htmlFor='name'>Name</label></td>
+            <td><input
+                name='name'
+
                 onChange={onInputChange}
                 type='text'
+                placeholder='Please enter your first name'
             /></td>
-        </tr>
+        </tr> */}
 
         <tr>
             <td><label htmlFor='user_name'>Username:</label></td>
@@ -155,6 +176,7 @@ function Register(props){
                 // value={newUser.username}
                 onChange={onInputChange}
                 type='text'
+                placeholder='Please enter a username'
             /></td>
         </tr>
 
@@ -165,20 +187,22 @@ function Register(props){
                 // value={newUser.password}
                 onChange={onInputChange}
                 type='password'
+                placeholder='Please enter a password'
             /></td>
         </tr>
 
-        <tr>
+        {/* <tr>
             <td><label htmlFor='email'>Email:</label></td>
             <td><input
                 name='email'
                 // value={newUser.email}
                 onChange={onInputChange}
                 type='email'
+                placeholder='Please enter an email'
             /></td>
-        </tr>
+        </tr> */}
 
-        <tr>
+        {/* <tr>
             <td><label htmlFor='location'>Location:</label></td>
             <td>
                 <select>
@@ -236,20 +260,24 @@ function Register(props){
                     <option value="WY">Wyoming</option>
                 </select>
             </td>
-        </tr>
+        </tr> */}
 
         </table> 
         
         <div>
+
             <p>{formErrors.name}</p>
             <p>{formErrors.username}</p>
             <p>{formErrors.password}</p>
-            <p>{formErrors.email}</p>
-            <p>{formErrors.location}</p>
+            {/* <p>{formErrors.email}</p>
+            <p>{formErrors.location}</p>   */}
         </div>
         
+
         <button onClick={newUserSubmit} >Submit</button>
-        
+
+//         <button onClick={onSubmit}>Submit</button>
+
         </StyledContainer>
     )
 }

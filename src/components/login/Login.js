@@ -1,12 +1,20 @@
 import React, {useState,useEffect} from 'react'
 import loginSchema from '../../validation/loginFormSchema';
 import * as yup  from 'yup';
+
 import { Button } from '../Nav';
 import './Login.css';
 import styled from 'styled-components'
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
+// =======
+// import Nav from '../Nav';
+// import axiosWithAuth from '../../utils/axiosWithAuth';
+// import './Login.css';
+// import styled from 'styled-components'
+// import { useHistory } from 'react-router-dom';
+// >>>>>>> master
 
 const LoginDiv = styled.form `
 
@@ -44,7 +52,11 @@ const initialErrors ={
     password:""
 }
 
+
 function Login() {
+    const history = useHistory();
+    
+    // State //
 const [user, setUser] = useState([]);
 const [formErrors, setErrors] = useState(initialErrors)
 const [formValues, setFormValues] = useState(initialVal)
@@ -80,6 +92,7 @@ const onInputChange = e => {
         [name]: value,
     });
 };
+
     const onSubmit = e => {
         e.preventDefault();
         const user = {
@@ -107,6 +120,9 @@ const onInputChange = e => {
 
 
 
+
+
+
     return (
         <div>
             <LoginDiv>
@@ -114,6 +130,7 @@ const onInputChange = e => {
                     <h1>Log In</h1>
                 </div>
                 <div id="login-body">
+
                     <label htmlFor="user_name">Username: &nbsp; </label>
                     <input 
                             type="text"
@@ -134,6 +151,7 @@ const onInputChange = e => {
 
                 </div>
             </LoginDiv>
+
         </div>
     )
 }

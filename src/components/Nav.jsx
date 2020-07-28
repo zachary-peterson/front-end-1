@@ -2,6 +2,11 @@
 // import {Link} from 'react-router-dom'
 // import '../App.css'
 import styled from 'styled-components'
+// <<<<<<< khwanchai-phaipha
+// =======
+// import Login from '../components/login/Login.js';
+// import Dashboard from './Dashboard';
+// >>>>>>> master
 
 
 export const NavWrap = styled.div`
@@ -34,6 +39,7 @@ export const Button = styled.button`
 
 
 `
+
 // function Nav() {
 //     return(
 //         <div>
@@ -43,6 +49,18 @@ export const Button = styled.button`
 //             <Link to='/signup'>signup</Link>
 //         </NavWrap>
 
+<!-- function Nav() {
+
+    return(
+        <div>
+        <NavWrap className="form-wrap">
+            <NavLink id ="home" href="https://expactmarketing.netlify.app/#main">Home</NavLink>
+            <Link id='home' exact to='/dashboard'>Main Page</Link>
+            <Link id ="login" exact to ='/'>Login</Link>
+            <Link id='login' exact to='/signup'>Register</Link>
+        </NavWrap>
+
+ -->
 //         </div>
 //     )
 // }

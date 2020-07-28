@@ -1,13 +1,23 @@
-import React from 'react';
-import { Jumbotron } from 'reactstrap';
+import React, { useEffect } from 'react';
+import './UserCard.css';
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
+  } from 'reactstrap';
 
-const UserCard = () => {
+
+const UserCard = props => {
+
     return (
         <div>
-            <Jumbotron>
-                <img src='https://source.unsplash.com/random/300x300' />
-                <h2>Title</h2>
-            </Jumbotron>
+            <div>
+                <Card>
+                    <CardImg src={props.data.img} />
+                    <CardTitle>{props.data.title}</CardTitle>
+                    <CardText>{props.data.caption}</CardText>
+                    <CardSubtitle>{}</CardSubtitle>
+                </Card>
+            </div>
         </div>
     )
 }

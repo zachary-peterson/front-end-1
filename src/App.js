@@ -5,10 +5,8 @@ import Login from './components/login/Login';
 import { Switch, Route, useHistory, NavLink} from 'react-router-dom'
 import Register from './components/sign-up/Register'
 import { connect } from 'react-redux'
+import Dashboard from './components/Dashboard';
 import { fetchData } from './action/action'
-
-
-
 
 function App(props) {
 
@@ -34,6 +32,7 @@ const signOutSubmit = e => {
             <Button><NavLink className="linkStyle" to="/">Login</NavLink></Button>
             <Button><NavLink className="linkStyle" to="/signup">Sign Up</NavLink> </Button>
             <Button onClick={signOutSubmit} ><NavLink className="linkStyle" to="/">log out</NavLink> </Button>
+            <Link id='home' exact to='/dashboard'>Main Page</Link>
         </NavWrap>
       </header>
       {/* <Nav /> */}
@@ -43,8 +42,12 @@ const signOutSubmit = e => {
       </Route>  
       <Route path="/signup">
         <Register />
+      </Route> 
+      <Route exact path='/dashboard'>
+        <Dashboard />
       </Route>
       </Switch>
+
     </div>
   );
 }
