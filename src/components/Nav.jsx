@@ -37,7 +37,7 @@ function Nav() {
     return(
         <div>
         <NavWrap className="form-wrap">
-            <NavLink id ="home" href="https://expactmarketing.netlify.app/#main">Home</NavLink>
+            <NavLink id ="home" href="https://expatmarketing.netlify.app/index.html">Home</NavLink>
             <Link id='home' exact to='/dashboard'>Main Page</Link>
             <Link id ="login" exact to ='/'>Login</Link>
             <Link className='login' exact to='/signup'>Register</Link>
