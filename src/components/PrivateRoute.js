@@ -1,3 +1,5 @@
+// PrivateRoute for our Protected Route waiting for the main route that  we want to push it to.
+
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 

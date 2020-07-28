@@ -9,7 +9,7 @@ export const fetchData = () => {
     return dispatch => {
         dispatch({ type: FETCH_DATA_START});
         axios
-        .get("URL")
+        .get("https://expat-journal-web31.herokuapp.com/api/users")
         .then(res => {
             console.log(res.data)
             dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data});
