@@ -6,19 +6,13 @@ import axiosWithAuth from '../../utils/axiosWithAuth';
 import { Link, useHistory } from 'react-router-dom';
 
 const initialVal = {
-    name: '',
-    username:'',
+    user_name:'',
     password:'',
-    email:'',
-    location:''
 };
 
 const initialErrors = {
-    name: '',
-    username: '',
+    user_name: '',
     password: '',
-    email: '',
-    location: ''
 };
 
 const StyledContainer = styled.form`
@@ -108,12 +102,12 @@ export default function Register(){
 
     const onSubmit = event => {
         event.preventDefault()
-
+        console.log(formValues)
         axiosWithAuth()
-        .post('/register', user)
+        .post('/users/register', formValues)
         .then(response => {
             console.log(response)
-            push('/')
+            push('/dashboard')
         })
     }
 
@@ -124,7 +118,7 @@ export default function Register(){
         
         <table>
             
-        <tr>
+        {/* <tr>
             <td><label htmlFor='name'>Name</label></td>
             <td><input
                 name='name'
@@ -132,12 +126,12 @@ export default function Register(){
                 type='text'
                 placeholder='Please enter your first name'
             /></td>
-        </tr>
+        </tr> */}
 
         <tr>
             <td><label htmlFor='username'>Username:</label></td>
             <td><input
-                name='username'
+                name='user_name'
                 onChange={onInputChange}
                 type='text'
                 placeholder='Please enter a username'
@@ -154,7 +148,7 @@ export default function Register(){
             /></td>
         </tr>
 
-        <tr>
+        {/* <tr>
             <td><label htmlFor='email'>Email:</label></td>
             <td><input
                 name='email'
@@ -162,9 +156,9 @@ export default function Register(){
                 type='email'
                 placeholder='Please enter an email'
             /></td>
-        </tr>
+        </tr> */}
 
-        <tr>
+        {/* <tr>
             <td><label htmlFor='location'>Location:</label></td>
             <td>
                 <select>
@@ -178,16 +172,16 @@ export default function Register(){
                     <option name='location'>South America</option>
                 </select>
             </td>
-        </tr>
+        </tr> */}
 
         </table> 
         
         <div>
-            <p>{formErrors.name}</p>
-            <p>{formErrors.username}</p>
+            {/* <p>{formErrors.name}</p> */}
+            <p>{formErrors.user_name}</p>
             <p>{formErrors.password}</p>
-            <p>{formErrors.email}</p>
-            <p>{formErrors.location}</p>  
+            {/* <p>{formErrors.email}</p>
+            <p>{formErrors.location}</p>   */}
         </div>
         
         <button onClick={onSubmit}>Submit</button>
