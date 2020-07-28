@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import * as yup from 'yup';
 import styled from 'styled-components';
 import registerFormSchema from '../../validation/registerFormSchema'
+import axiosWithAuth from '../../utils/axiosWithAuth';
+import { Link, useHistory } from 'react-router-dom';
 
 const initialVal = {
-    first_name: '',
-    last_name: '',
+    name: '',
     username:'',
     password:'',
     email:'',
@@ -13,8 +14,7 @@ const initialVal = {
 };
 
 const initialErrors = {
-    first_name: '',
-    last_name: '',
+    name: '',
     username: '',
     password: '',
     email: '',
@@ -27,6 +27,7 @@ const StyledContainer = styled.form`
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    background: rgba(55, 90, 66, 0.616);
     width: 60%;
     font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
     border: 2px solid black;
@@ -75,7 +76,9 @@ const StyledContainer = styled.form`
 
 export default function Register(){
 
-    const [newUser, setUser] =useState([]);
+    const { push } = useHistory();
+
+    const [user, setUser] =useState([]);
     const [formValues, setForm]=useState(initialVal);
     const [formErrors, setErrors]=useState(initialErrors);
 
@@ -103,6 +106,17 @@ export default function Register(){
         });
     };
 
+    const onSubmit = event => {
+        event.preventDefault()
+
+        axiosWithAuth()
+        .post('/register', user)
+        .then(response => {
+            console.log(response)
+            push('/')
+        })
+    }
+
     return (
         <StyledContainer>  
 
@@ -111,20 +125,12 @@ export default function Register(){
         <table>
             
         <tr>
-            <td><label htmlFor='fname'>First Name:</label></td>
+            <td><label htmlFor='name'>Name</label></td>
             <td><input
-                name='fname'
+                name='name'
                 onChange={onInputChange}
                 type='text'
-            /></td>
-        </tr>
-
-        <tr>
-            <td><label htmlFor='lname'>Last Name:</label></td>
-            <td><input
-                name='lname'
-                onChange={onInputChange}
-                type='text'
+                placeholder='Please enter your first name'
             /></td>
         </tr>
 
@@ -134,6 +140,7 @@ export default function Register(){
                 name='username'
                 onChange={onInputChange}
                 type='text'
+                placeholder='Please enter a username'
             /></td>
         </tr>
 
@@ -143,6 +150,7 @@ export default function Register(){
                 name='password'
                 onChange={onInputChange}
                 type='password'
+                placeholder='Please enter a password'
             /></td>
         </tr>
 
@@ -152,6 +160,7 @@ export default function Register(){
                 name='email'
                 onChange={onInputChange}
                 type='email'
+                placeholder='Please enter an email'
             /></td>
         </tr>
 
@@ -174,15 +183,14 @@ export default function Register(){
         </table> 
         
         <div>
-            <p>{formErrors.fname}</p>
-            <p>{formErrors.lname}</p>
+            <p>{formErrors.name}</p>
             <p>{formErrors.username}</p>
             <p>{formErrors.password}</p>
             <p>{formErrors.email}</p>
-            <p>{formErrors.location}</p>
+            <p>{formErrors.location}</p>  
         </div>
         
-        <button>Submit</button>
+        <button onClick={onSubmit}>Submit</button>
         
         </StyledContainer>
     )
