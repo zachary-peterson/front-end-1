@@ -11,8 +11,7 @@ import { connect } from 'react-redux';
 
 const initialVal = {
     name: '',
-    // last_name: '',
-    user_name:'',
+    username:'',
     password:'',
     email:'',
     location:''
@@ -20,8 +19,7 @@ const initialVal = {
 
 const initialErrors = {
     name: '',
-    // last_name: '',
-    user_name: '',
+    username: '',
     password: '',
     email: '',
     location: ''
@@ -86,10 +84,10 @@ function Register(props){
     const [formErrors, setErrors]=useState(initialErrors);
     const { push } = useHistory()
 
-    useEffect(()=> {
-        // get request for user data with redux 
-        props.fetchData()
-    }, [])
+    // useEffect(()=> {
+    //     // get request for user data with redux 
+    //     props.fetchData()
+    // }, [])
 
     const onInputChange = e => {
        const { name, value } = e.target
@@ -122,10 +120,10 @@ function Register(props){
     const newUserSubmit = e => {
         e.preventDefault()
         axiosWithAuth()
-        .post(`/users/register`, formValues)
+        .post(`https://expat-journal-web31.herokuapp.com/api/auth/register`, formValues)
         .then(res => {
+            setUser(res.data)
             console.log(res.data)
-            setForm(res.data)
             push('/')
         })
         .catch(err =>{
@@ -137,7 +135,6 @@ function Register(props){
         <StyledContainer>  
 
             <h2>Sign Up</h2>
-            <p> {props.user.name} </p>
         
         <table>
             
@@ -145,7 +142,7 @@ function Register(props){
             <td><label htmlFor='fname'>Full Name:</label></td>
             <td><input
                 name='name'
-                value={newUser.name}
+                // value={newUser.name}
                 onChange={onInputChange}
                 type='text'
             /></td>
@@ -154,8 +151,8 @@ function Register(props){
         <tr>
             <td><label htmlFor='user_name'>Username:</label></td>
             <td><input
-                name='user_name'
-                value={newUser.username}
+                name='username'
+                // value={newUser.username}
                 onChange={onInputChange}
                 type='text'
             /></td>
@@ -165,7 +162,7 @@ function Register(props){
             <td><label htmlFor='password'>Password:</label></td>
             <td><input
                 name='password'
-                value={newUser.password}
+                // value={newUser.password}
                 onChange={onInputChange}
                 type='password'
             /></td>
@@ -175,7 +172,7 @@ function Register(props){
             <td><label htmlFor='email'>Email:</label></td>
             <td><input
                 name='email'
-                value={newUser.email}
+                // value={newUser.email}
                 onChange={onInputChange}
                 type='email'
             /></td>
@@ -257,16 +254,4 @@ function Register(props){
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        loading: state.loading,
-        user: state.user,  
-        error: state.error,
-    } 
-  
-  }
-  export default connect(
-    mapStateToProps,
-    { fetchData }
-  )(Register);
-  
+export default Register;

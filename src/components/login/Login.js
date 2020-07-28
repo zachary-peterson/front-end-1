@@ -35,12 +35,12 @@ const Btn = styled.button`
     height: 2rem;
 `
 const initialVal = {
-    user_name: "",
+    username: "",
     password:""
 }
 
 const initialErrors ={
-    user_name: "",
+    username: "",
     password:""
 }
 
@@ -54,6 +54,11 @@ const { push } = useHistory();
 
 const onInputChange = e => {
     const { name, value } = e.target;
+    setUser({
+        ...user,
+        [name]: value
+    })
+
 
     yup
         .reach(loginSchema, name)
@@ -77,12 +82,12 @@ const onInputChange = e => {
 };
     const onSubmit = e => {
         e.preventDefault();
-        // const user = {
-        //     username: formValues.username.trim(),
-        //     password: formValues.password.trim(),
-        // };
-        axios
-            .post("http://75.74.208.109:3000/api/users", formValues)
+        const user = {
+            username: formValues.username.trim(),
+            password: formValues.password.trim(),
+        };
+        axiosWithAuth()
+            .post("https://expat-journal-web31.herokuapp.com/api/auth/login", formValues)
             .then(res => {
                 console.log(res)
                 window.localStorage.setItem("token", res.data.payload);
@@ -92,13 +97,6 @@ const onInputChange = e => {
                 console.log(err)
             })
         
-    }
-
-    const signOutSubmit = e => {
-        e.preventDefault()
-        localStorage.clear()
-        push('/')
-
     }
 
     useEffect(() => {
@@ -111,7 +109,7 @@ const onInputChange = e => {
 
     return (
         <div>
-            <LoginDiv onSubmit={onSubmit}>
+            <LoginDiv>
                 <div id="login-head">
                     <h1>Log In</h1>
                 </div>
@@ -119,7 +117,7 @@ const onInputChange = e => {
                     <label htmlFor="user_name">Username: &nbsp; </label>
                     <input 
                             type="text"
-                            name="user_name" 
+                            name="username" 
                             onChange={onInputChange}
                         />
                     <div className="error">{formErrors.username}</div>         
@@ -132,7 +130,8 @@ const onInputChange = e => {
                         />
 
                     <div className="error">{formErrors.password}</div>
-                    <Btn>Submit</Btn>
+                    <Btn><button onClick={onSubmit}>Submit</button></Btn>
+
                 </div>
             </LoginDiv>
         </div>
