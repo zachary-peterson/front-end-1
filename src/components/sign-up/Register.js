@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import registerFormSchema from '../../validation/registerFormSchema'
 
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
-import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { fetchData } from '../../action/action'
 import { connect } from 'react-redux';
@@ -82,17 +81,13 @@ function Register(props){
     const [user, setUser] =useState([]);
     const [formValues, setForm]=useState(initialVal);
     const [formErrors, setErrors]=useState(initialErrors);
-    const { push } = useHistory()
 
-    // useEffect(()=> {
-    //     // get request for user data with redux 
-    //     props.fetchData()
-    // }, [])
+    
 
     const onInputChange = e => {
        const { name, value } = e.target
         setUser({
-            ...newUser,
+            ...user,
             [name]: value
         })
     
@@ -133,16 +128,6 @@ function Register(props){
 
     }
 
-//     const onSubmit = event => {
-//         event.preventDefault()
-//         console.log(formValues)
-//         axiosWithAuth()
-//         .post('/users/register', formValues)
-//         .then(response => {
-//             console.log(response)
-//             push('/dashboard')
-//         })
-//     }
 
     return (
         <StyledContainer>  
@@ -150,15 +135,8 @@ function Register(props){
             <h2>Sign Up</h2>
         
         <table>
-            
-
-        <tr>
-            <td><label htmlFor='fname'>Full Name:</label></td>
-            <td><input
-                name='name'
-                // value={newUser.name}
-
-        {/* <tr>
+       
+            <tr>
             <td><label htmlFor='name'>Name</label></td>
             <td><input
                 name='name'
@@ -167,13 +145,12 @@ function Register(props){
                 type='text'
                 placeholder='Please enter your first name'
             /></td>
-        </tr> */}
+        </tr> 
 
         <tr>
             <td><label htmlFor='user_name'>Username:</label></td>
             <td><input
                 name='username'
-                // value={newUser.username}
                 onChange={onInputChange}
                 type='text'
                 placeholder='Please enter a username'
@@ -275,8 +252,6 @@ function Register(props){
         
 
         <button onClick={newUserSubmit} >Submit</button>
-
-//         <button onClick={onSubmit}>Submit</button>
 
         </StyledContainer>
     )
