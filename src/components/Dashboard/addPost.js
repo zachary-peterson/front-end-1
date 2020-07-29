@@ -15,6 +15,14 @@ const initialFormValues = {
 function AddPost() {
  const[post, setPost] =  useState(initialFormValues)
 
+ const onInputChange = e => {
+    const { name, value } = e.target;
+    setPost({
+        ...post,
+        [name]: value
+    })
+ }
+
     return(
         <div  id="addPost-Wrap">
         <div>
@@ -26,7 +34,7 @@ function AddPost() {
     name="title"
     type="text"
     value=""
-    onChange=""
+    onChange={onInputChange}
      />
      <br />
  <label htmlFor="location">Location </label> 
