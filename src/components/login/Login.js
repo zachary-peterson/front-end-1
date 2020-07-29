@@ -8,13 +8,7 @@ import styled from 'styled-components'
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
-// =======
-// import Nav from '../Nav';
-// import axiosWithAuth from '../../utils/axiosWithAuth';
-// import './Login.css';
-// import styled from 'styled-components'
-// import { useHistory } from 'react-router-dom';
-// >>>>>>> master
+
 
 const LoginDiv = styled.form `
 
@@ -147,7 +141,7 @@ const onInputChange = e => {
                         />
 
                     <div className="error">{formErrors.password}</div>
-                    <Btn><button onClick={onSubmit}>Submit</button></Btn>
+                    <Button onClick={onSubmit}>Submit</Button>
 
                 </div>
             </LoginDiv>

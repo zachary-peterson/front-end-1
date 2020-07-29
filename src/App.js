@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { NavWrap, Button } from './components/Nav'
 import Login from './components/login/Login';
-import { Switch, Route, useHistory, NavLink} from 'react-router-dom'
+import { Switch, Route, useHistory, NavLink, Link} from 'react-router-dom'
 import Register from './components/sign-up/Register'
 import { connect } from 'react-redux'
 import Dashboard from './components/Dashboard';
