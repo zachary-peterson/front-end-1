@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Dashboard from './Dashboard';
 import { fetchData } from './action/action'
 import { fetchPosts } from './action/fetchPosts';
-import Nav from './components/Nav'
+import AddPost from './components/Dashboard/addPost'
 
 function App(props) {
   const [isFetchingData, setIsFetchingData] = useState(false)
@@ -50,6 +50,9 @@ const signOutSubmit = e => {
       </Route> 
       <Route exact path='/dashboard'>
         <Dashboard />
+      </Route>
+      <Route exact path='/post'>
+        <AddPost />
       </Route>
       </Switch>
 
