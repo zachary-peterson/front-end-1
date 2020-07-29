@@ -13,7 +13,7 @@ const Dashboard = () => {
             setData(response.data)
         })
         .catch(error => console.log(error))
-    })
+    }, [])
     return (
         <div>
             {data.map(post => (
