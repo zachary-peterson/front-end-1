@@ -1,7 +1,8 @@
 import React,{ useEffect, useState } from 'react';
-import fetchPosts from '../action/fetchPosts';
-import axiosWithAuth from '../utils/axiosWithAuth';
-import UserCard from './UserCard'
+import fetchPosts from "./action/fetchPosts"
+import axiosWithAuth from "./utils/axiosWithAuth";
+import UserCard from './components/Dashboard/UserCard'
+import AddPost from './components/Dashboard/addPost'
 
 const Dashboard = () => {
     const [data, setData] = useState([])
@@ -16,6 +17,7 @@ const Dashboard = () => {
     }, [])
     return (
         <div>
+            <AddPost />
             {data.map(post => (
                 <UserCard post={post}/>
             ))}
