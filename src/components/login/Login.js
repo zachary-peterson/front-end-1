@@ -96,7 +96,7 @@ const onInputChange = e => {
         axiosWithAuth()
             .post("https://expat-journal-web31.herokuapp.com/api/auth/login", formValues)
             .then(res => {
-                console.log(res)
+                console.log(res.data)
                 window.localStorage.setItem("token", res.data.payload);
                 push("/dashboard")
             })
