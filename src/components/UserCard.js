@@ -12,10 +12,11 @@ const UserCard = props => {
         <div>
             <div>
                 <Card>
-                    <CardImg src={props.data.img} />
-                    <CardTitle>{props.data.title}</CardTitle>
-                    <CardText>{props.data.caption}</CardText>
-                    <CardSubtitle>{}</CardSubtitle>
+                    <CardImg src={props.posts.img_url} />
+                    <CardTitle>{props.posts.username}</CardTitle>
+                    <CardTitle>{props.posts.title}</CardTitle>
+                    <CardText>{props.posts.desciption}</CardText>
+                    <CardSubtitle>{props.posts.location}</CardSubtitle>
                 </Card>
             </div>
         </div>

@@ -1,17 +1,27 @@
 import React,{ useEffect, useState } from 'react';
-import UserCard from './UserCard';
 import fetchPosts from '../action/fetchPosts';
+import axiosWithAuth from '../utils/axiosWithAuth';
+import UserCard from './UserCard'
 
 const Dashboard = () => {
-
-    const [posts, setPosts] = useState([])
-
-
+    const [data, setData] = useState([])
+    useEffect(() => {
+        axiosWithAuth()
+        .get('https://expat-journal-web31.herokuapp.com/api/posts/all')
+        .then(response => {
+            console.log(response)
+            setData(response.data)
+        })
+        .catch(error => console.log(error))
+    }, [])
     return (
         <div>
-           <h2>Nothing here yet</h2>
+            {data.map(post => (
+                <UserCard post={post}/>
+            ))}
         </div>
     )
 }
 
 export default Dashboard;
+

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import './App.css';
 import { NavWrap, Button } from './components/Nav'
 import Login from './components/login/Login';
@@ -7,8 +7,12 @@ import Register from './components/sign-up/Register'
 import { connect } from 'react-redux'
 import Dashboard from './components/Dashboard';
 import { fetchData } from './action/action'
+import { fetchPosts } from './action/fetchPosts';
 
 function App(props) {
+  const [isFetchingData, setIsFetchingData] = useState(false)
+  const [error, setError] = useState('')
+  const [posts, setPosts] = useState([])
 
   const { push } = useHistory();
 
@@ -21,7 +25,6 @@ const signOutSubmit = e => {
   e.preventDefault()
   localStorage.clear()
   push('/')
-
 }
 
   return (
