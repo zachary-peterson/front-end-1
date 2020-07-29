@@ -1,6 +1,6 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import loginSchema from '../../validation/loginFormSchema';
-import * as yup  from 'yup';
+import * as yup from 'yup';
 
 import { Button } from '../Nav';
 import './Login.css';
@@ -9,11 +9,13 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 
+import { TweenMax, Power3 } from 'gsap'
 
-const LoginDiv = styled.form `
+const LoginDiv = styled.form`
 
     display: flex;
     flex-direction: column;
+    opacity: 0;
     margin: 0% 36% 20%;
     height: 60%;
     background: rgba(55, 90, 66, 0.616);
@@ -38,65 +40,64 @@ const Btn = styled.button`
 `
 const initialVal = {
     username: "",
-    password:""
+    password: ""
 }
 
-const initialErrors ={
+const initialErrors = {
     username: "",
-    password:""
+    password: ""
 }
+
 
 
 function Login() {
     const history = useHistory();
-    
+    let formAnim = useRef(null);
     // State //
-const [user, setUser] = useState([]);
-const [formErrors, setErrors] = useState(initialErrors)
-const [formValues, setFormValues] = useState(initialVal)
-const [disabled, setDisabled] = useState(true)
+    const [user, setUser] = useState([]);
+    const [formErrors, setErrors] = useState(initialErrors)
+    const [formValues, setFormValues] = useState(initialVal)
+    const [disabled, setDisabled] = useState(true)
 
-const { push } = useHistory();
+    const { push } = useHistory();
 
-const onInputChange = e => {
-    const { name, value } = e.target;
-    setUser({
-        ...user,
-        [name]: value
-    })
-
-
-    yup
-        .reach(loginSchema, name)
-        .validate(value)
-        .then(valid => {
-            setErrors({
-                ...formErrors,
-                [name]: "",
-            });
+    const onInputChange = e => {
+        const { name, value } = e.target;
+        setUser({
+            ...user,
+            [name]: value
         })
-        .catch(err => {
-            setErrors({
-                ...formErrors,
-                [name]: err.errors[0],
+
+
+        yup
+            .reach(loginSchema, name)
+            .validate(value)
+            .then(valid => {
+                setErrors({
+                    ...formErrors,
+                    [name]: "",
+                });
+            })
+            .catch(err => {
+                setErrors({
+                    ...formErrors,
+                    [name]: err.errors[0],
+                });
             });
+        setFormValues({
+            ...formValues,
+            [name]: value,
         });
-    setFormValues({
-        ...formValues,
-        [name]: value,
-    });
-};
+    };
+
 
     const onSubmit = e => {
         e.preventDefault();
-        const user = {
-            username: formValues.username.trim(),
-            password: formValues.password.trim(),
-        };
+      
         axiosWithAuth()
             .post("https://expat-journal-web31.herokuapp.com/api/auth/login", formValues)
             .then(res => {
-                if (res.status === 200 && res.data){
+                if (res.status === 200 && res.data) {
                     localStorage.setItem('token', res.data.token)
                     push('/dashboard')
                 }
@@ -104,7 +105,7 @@ const onInputChange = e => {
             .catch(err => {
                 console.log(err)
             })
-        
+
     }
 
     useEffect(() => {
@@ -116,37 +117,48 @@ const onInputChange = e => {
 
 
 
-
+    useEffect(() => {
+        TweenMax.to(
+            formAnim,
+            5,
+            {
+                opacity: 1,
+                y: -20,
+                ease: Power3.easeOut
+            }
+        )
+    })
 
     return (
         <div>
-            <LoginDiv>
+
+
+            <LoginDiv onSubmit={onSubmit} ref={el => { formAnim = el }}>
+
                 <div id="login-head">
                     <h1>Log In</h1>
                 </div>
                 <div id="login-body">
 
-                    <label htmlFor="user_name">Username: &nbsp; </label>
-                    <input 
-                            type="text"
-                            name="username" 
-                            onChange={onInputChange}
-                        />
-                    <div className="error">{formErrors.username}</div>         
-                        
+                    <label htmlFor="username">Username: &nbsp; </label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder='Enter a Username'
+                        onChange={onInputChange} />
+                    <div className="error">{formErrors.username}</div>
+
                     <label htmlFor="password">Password: &nbsp;</label>
-                        <input 
-                            type="password"
-                            onChange={onInputChange}
-                            name="password"
-                        />
-
+                    <input
+                        type="password"
+                        onChange={onInputChange}
+                        name="password"
+                        placeholder='Enter a Password'
+                    />
                     <div className="error">{formErrors.password}</div>
-                    <Button onClick={onSubmit}>Submit</Button>
-
+                    <Button disabled={disabled}>Submit</Button>
                 </div>
             </LoginDiv>
-
         </div>
     )
 }
