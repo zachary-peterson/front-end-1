@@ -8,8 +8,8 @@ import styled from 'styled-components'
 export const NavWrap = styled.div`
     display:flex;
     flex-direction: end;
-    /* flex-wrap: wrap;
-    width: 100%; */
+    flex-wrap: wrap;
+    width: 100%; 
     margin-left: 65%;
     margin-bottom: 6%;
     height: 3%;
