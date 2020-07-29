@@ -1,5 +1,5 @@
 import React , {useState} from 'react'
-import "../App.css"
+
 
 const initialFormValues = {
     title:"",
@@ -32,6 +32,13 @@ type="text"
 id="postBody"
 
 />
+<br />
+<label htmlFor="image_url">Image</label>
+<br />
+<input type="text"
+ name='image_url'
+value=""
+onChange="" /> 
  <br /> 
     <label htmlFor="post">Post </label> 
     <br />
