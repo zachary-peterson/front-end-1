@@ -1,24 +1,29 @@
 import React , {useState} from 'react'
+import './addPost.css'
+
 
 
 const initialFormValues = {
-    title:"",
-    location:"",
     image_url:"",
-    post:"",
+    title:"",
+    description:"",
+    location:"",
+  
+    
 }
 
 function AddPost() {
  const[post, setPost] =  useState(initialFormValues)
 
     return(
+        <div  id="addPost-Wrap">
         <div>
-<form id="addPost-Wrap">
+<form>
     <h1> Add Post </h1>
-    <label htmlFor="postTitle">Title </label> 
+    <label htmlFor="title">Title </label> 
     <br /> 
     <input 
-    name="postTitle"
+    name="title"
     type="text"
     value=""
     onChange=""
@@ -33,24 +38,24 @@ id="postBody"
 
 />
 <br />
-<label htmlFor="image_url">Image</label>
+<label htmlFor="image_url">Select an Image</label>
 <br />
-<input type="text"
+<input type="file"
  name='image_url'
 value=""
 onChange="" /> 
  <br /> 
-    <label htmlFor="post">Post </label> 
+    <label htmlFor="description">Post </label> 
     <br />
-    <input 
-    type='text'
+    <textarea
+    name="description"
     value=""
     onChange=""
     />
     <br />
 <button>Submit</button>
 </form>
-
+</div>
         </div>
     )
 
