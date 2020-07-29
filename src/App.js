@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import Dashboard from './Dashboard';
 import { fetchData } from './action/action'
 import { fetchPosts } from './action/fetchPosts';
+import Nav from './components/Nav'
 
 function App(props) {
   const [isFetchingData, setIsFetchingData] = useState(false)
@@ -31,14 +32,15 @@ const signOutSubmit = e => {
     <div className="App">
       <header>
         <NavWrap>
-            <Button><a className="linkStyle" href="https://expactmarketing.netlify.app/#main">Home</a></Button>
+            <Button><a className="linkStyle" href="https://expatmarketing.netlify.app/index.html">Home</a></Button>
             <Button><NavLink className="linkStyle" to="/">Login</NavLink></Button>
             <Button><NavLink className="linkStyle" to="/signup">Sign Up</NavLink> </Button>
             <Button onClick={signOutSubmit} ><NavLink className="linkStyle" to="/">log out</NavLink> </Button>
-            <Link id='home' exact to='/dashboard'>Main Page</Link>
+            <Link id='home' exact to='/dashboard'>Dashboard</Link>
         </NavWrap>
       </header>
-      {/* <Nav /> */}
+     {// <Nav /> Stacey' nav (not used) ]
+     }
       <Switch>
       <Route exact path='/'>
         <Login user={props.user} />

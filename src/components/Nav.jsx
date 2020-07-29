@@ -23,14 +23,24 @@ export const NavLink = styled.a`
 text-decoration: none;
 
 `
-export const Button = styled.button`
-    border: 1px solid rgb(172, 189, 178);
+export const Button = styled.div`
+
     color: white;
     text-decoration: none;
-    background: rgb(68, 104, 82);
+
     width: 25%;
     height: 2rem;
 
+
+`
+
+export const ButtonSignOut = styled.button`
+border: 1px solid rgb(172, 189, 178);
+color: white;
+text-decoration: none;
+background: rgb(68, 104, 82);
+width: 25%;
+height: 2rem;
 
 `
 const Nav = () => {
@@ -41,7 +51,7 @@ const Nav = () => {
             <Link id='home' exact to='/dashboard'>Main Page</Link>
             <Link id ="login" exact to ='/login'>Login</Link>
             <Link className='login' exact to='/signup'>Sign Up</Link>
-            <Link className="login" exact to='/posts'>Add Post</Link>
+            
         </NavWrap>
        </div>
     )
