@@ -6,40 +6,16 @@ import { connect } from 'react-redux';
 
 const AddComment = (props) => {
 
-    // const [comment, setComment] =useState([]);
-
-    // const newCommentSubmit = e => {
-    //     e.preventDefault()
-    //     axiosWithAuth()
-    //     .post(`https://expat-journal-web31.herokuapp.com/api/posts/:id/comments`, formValues)
-    //     .then(res => {
-    //         setComment(res.data)
-    //         console.log(res.data)
-    //     })
-    //     .catch(err =>{
-    //         console.log(err)
-    //     })
-
-    // }
-
-    // const onInputChange = e => {
-    //     const { name, value } = e.target
-    //      setComment({
-    //          ...comment,
-    //          [name]: value
-    //      })
-    //     }
-
     return(
             <form id="addComment">
                 <input 
-                    // onChange={onInputChange}
+                    onChange=''
                     placeholder={`Post a comment as ${props.username}...`}
                     type='text'
                     value=''
                 />
 
-                {/* <button onClick={newCommentSubmit} >Submit</button> */}
+                <button onClick='' >Submit</button>
             </form>
     );
 };
