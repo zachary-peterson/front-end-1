@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect, useRef} from 'react'
 import loginSchema from '../../validation/loginFormSchema';
 import * as yup  from 'yup';
 import Nav from '../Nav';
@@ -6,11 +6,13 @@ import axiosWithAuth from '../../utils/axiosWithAuth';
 import './Login.css';
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom';
+import {TweenMax, Power3} from 'gsap'
 
 const LoginDiv = styled.form `
 
     display: flex;
     flex-direction: column;
+    opacity: 0;
     margin: 0% 36% 20%;
     height: 60%;
     background: rgba(55, 90, 66, 0.616);
@@ -44,9 +46,10 @@ const initialErrors ={
 }
 
 
+
 function Login() {
     const history = useHistory();
-    
+    let formAnim = useRef(null);
     // State //
 const [user, setUser] = useState([]);
 const [formErrors, setErrors] = useState(initialErrors)
@@ -78,6 +81,12 @@ const onInputChange = e => {
 };
 const onSubmit = e => {
     e.preventDefault();
+    axiosWithAuth()
+    .post('/login', user)
+    .then(response => {
+        console.log(response)
+        history.push('/')
+    })
 }
 useEffect(() => {
     loginSchema.isValid(formValues).then(valid => {
@@ -85,11 +94,21 @@ useEffect(() => {
     });
 }, [formValues]);
 
-
+useEffect(() => {
+    TweenMax.to(
+        formAnim,
+        5,
+        {
+            opacity: 1,
+            y :-20,
+            ease: Power3.easeOut
+        }
+    )
+})
 
     return (
         <div>
-            <LoginDiv onSubmit={onSubmit}>
+            <LoginDiv onSubmit={onSubmit} ref={el => {formAnim = el}}>
                 <div id="login-head">
                     <h1>Log In</h1>
                 </div>
@@ -110,7 +129,7 @@ useEffect(() => {
          placeholder='Enter a Password'
          />
          <div className="error">{formErrors.password}</div>
-         <p><Button>Submit</Button></p>
+         <p><Button disabled={disabled}>Submit</Button></p>
          </div>
          </LoginDiv>
         </div>
