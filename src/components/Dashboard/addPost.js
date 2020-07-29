@@ -1,18 +1,40 @@
-import React from 'react'
+import React , {useState} from 'react'
+import './addPost.css'
+
+
+
+const initialFormValues = {
+    image_url:"",
+    title:"",
+    description:"",
+    location:"",
+  
+    
+}
 
 function AddPost() {
+ const[post, setPost] =  useState(initialFormValues)
+
+ const onInputChange = e => {
+    const { name, value } = e.target;
+    setPost({
+        ...post,
+        [name]: value
+    })
+ }
 
     return(
+        <div  id="addPost-Wrap">
         <div>
-<form id="addPost-Wrap">
+<form>
     <h1> Add Post </h1>
-    <label htmlFor="postTitle">Title </label> 
+    <label htmlFor="title">Title </label> 
     <br /> 
     <input 
-    name="postTitle"
+    name="title"
     type="text"
     value=""
-    onChange=""
+    onChange={onInputChange}
      />
      <br />
  <label htmlFor="location">Location </label> 
@@ -23,18 +45,25 @@ type="text"
 id="postBody"
 
 />
+<br />
+<label htmlFor="image_url">Select an Image</label>
+<br />
+<input type="file"
+ name='image_url'
+value=""
+onChange="" /> 
  <br /> 
-    <label htmlFor="post">Post </label> 
+    <label htmlFor="description">Post </label> 
     <br />
-    <input 
-    type='text'
+    <textarea
+    name="description"
     value=""
     onChange=""
     />
     <br />
 <button>Submit</button>
 </form>
-
+</div>
         </div>
     )
 
