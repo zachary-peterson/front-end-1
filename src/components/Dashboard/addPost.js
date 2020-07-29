@@ -1,6 +1,15 @@
-import React from 'react'
+import React , {useState} from 'react'
+import "../App.css"
+
+const initialFormValues = {
+    title:"",
+    location:"",
+    image_url:"",
+    post:"",
+}
 
 function AddPost() {
+ const[post, setPost] =  useState(initialFormValues)
 
     return(
         <div>
