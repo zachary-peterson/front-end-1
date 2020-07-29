@@ -31,8 +31,6 @@ const AddComment = (props) => {
     //     }
 
     return(
-        <div>
-
             <form id="addComment">
                 <input 
                     // onChange={onInputChange}
@@ -43,8 +41,6 @@ const AddComment = (props) => {
 
                 {/* <button onClick={newCommentSubmit} >Submit</button> */}
             </form>
-
-        </div>
     );
 };
 
