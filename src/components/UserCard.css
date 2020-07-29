@@ -1,5 +1,9 @@
-.card {
-    width: 400px;
-    color: black;
+.mainContainer {
     display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+}
+.mainContainer img {
+    margin-right: 40%;
+    margin-left: 40%;
 }

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
+import axiosWithAuth from '../utils/axiosWithAuth';
 import './UserCard.css';
 import {
     Card, CardImg, CardText, CardBody,
@@ -7,17 +8,29 @@ import {
 
 
 const UserCard = props => {
+    const [data, setData] = useState([])
 
+    useEffect(() => {
+        axiosWithAuth()
+        .get('https://expat-journal-web31.herokuapp.com/api/posts/allposts')
+        .then(response => {
+            console.log(response)
+            setData(response.data)
+        })
+        .catch(error => console.log(error))
+    }, [])
     return (
         <div>
             <div>
-                <Card>
-                    <CardImg src={props.posts.img_url} />
-                    <CardTitle>{props.posts.username}</CardTitle>
-                    <CardTitle>{props.posts.title}</CardTitle>
-                    <CardText>{props.posts.desciption}</CardText>
-                    <CardSubtitle>{props.posts.location}</CardSubtitle>
-                </Card>
+            {data.map(item => (
+                <div className='mainContainer' key={item.key}>
+                <img src={item.img_url} />
+                <h3>{item.username}</h3>
+                <h4>{item.title}</h4>
+                <p>{item.desciption}</p>
+                <h4>{item.location}</h4>
+                </div>
+            ))}
             </div>
         </div>
     )
