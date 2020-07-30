@@ -1,12 +1,20 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux'
+import {fetchPosts} from '../../action/fetchPosts'
 import axiosWithAuth from '../../utils/axiosWithAuth';
-import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import axios from 'axios'
+import UpdatePost from './updatePost'
+import styled from 'styled-components'
 
 
-const UserCard = () => {
-    const [data, setData] = useState([])
-    const { push } = useHistory()
+const initialFormValues = {
+    img_url:"",
+    title:"",
+    description:"",
+    location:"",   
+}
+const UserCard = props => {
 
     const PostDiv = styled.div`
     color: whitesmoke;
@@ -19,36 +27,78 @@ const UserCard = () => {
     margin-top: 5%;
     /* border: dashed whitesmoke 2px; */
     `
-    const onSubmit = () => {
-        push('/dashboard')
+
+
+    const [posts, setPost] =  useState([])
+    const [editPost, setEditPost] = useState(initialFormValues)
+    const params = useParams()
+    const { push } =useHistory()
+    console.log(props)
+
+    
+const getPost = () => {
+    axiosWithAuth()
+    .get(`https://expat-journal-web31.herokuapp.com/api/posts/allposts/`)
+    .then(res => {
+        console.log(res)
+        setPost(res.data)
+    })
+    .catch(error => {
+        console.log("Beep Boop, no data", error)
+        return error
+    })
+}
+
+    useEffect(()=> {
+       fetchPosts()
+    }, [])
+
+    const deletePost = () => {
+        axiosWithAuth()
+        .delete(`https://expat-journal-web31.herokuapp.com/api/posts/${posts.id}`)
+        .then(res => {
+            setPost(posts.filter(post => post.id !==posts.id))
+        })
+
     }
 
-    useEffect(() => {
-        axiosWithAuth()
-        .get('https://expat-journal-web31.herokuapp.com/api/posts/allposts')
-        .then(response => {
-            console.log(response)
-            setData(response.data)
-        })
-        .catch(error => console.log("Your'e probably not logged in..", error))
-    }, [])
     return (
             <div>
-                {data.map(item => (
-                    <PostDiv>
-                    <div key={item.key}>
-                    <img src={item.img_url}alt='Expats Journals' />
-                    <h4>{item.title}</h4>
-                    <h5>User: {item.username}</h5>
-                    <h6>{item.desciption}</h6>
-                    <h6>Location: {item.location}</h6>
-                    </div>
+
+                {
+                    props.posts.map(post => (
+                        <div>
+                            {/* <p>{post.title} </p> */}
+                    <PostDiv >
+                        <div key={post.key}>
+                        <img src={post.img_url} alt ='Expat Journal'/>
+                        <h4>{post.title}</h4>
+                        <h5>{post.username}</h5>
+                        <h6>{post.description}</h6>
+                        <h6>{post.location}</h6>
+                        <button className="update-button" onClick={() => push(`/updatepost/${params.id}`)}>Update Post</button>
+                        <button onClick={deletePost}>Delete Post</button>
+                        </div>
                 </PostDiv>
-                ))}
-                <br></br>
-                <button onClick={onSubmit}>Click here to post a journal entry</button>
+               
+                        </div>
+                    ))
+                }
+                
             </div>
     )
 }
+const mapStateToProps = state => {
+    return {
+        loading: state.loading,
+        posts: state.posts,  
+        error: state.error,
+    } 
+  
+  }
+export default connect(
+    mapStateToProps,
+    { fetchPosts }
+)(UserCard);
 
-export default UserCard;
+

@@ -206,7 +206,7 @@ function Register(props){
         </div>
         
 
-        <button onClick={newUserSubmit} >Submit</button>
+        <button onClick={newUserSubmit}>Submit</button>
 
         </StyledContainer>
     )

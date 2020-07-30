@@ -9,8 +9,9 @@ import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
 import { fetchData } from './action/action';
 import { fetchPosts } from './action/fetchPosts';
-import AddPost from './components/Dashboard/addPost';
-import UserCard from './components/Dashboard/UserCard';
+import AddPost from './components/Dashboard/addPost'
+import UpdatePost from './components/Dashboard/updatePost'
+import PrivateRoute from './components/PrivateRoute';
 
 function App(props) {
   const [isFetchingData, setIsFetchingData] = useState(false)
@@ -22,6 +23,7 @@ function App(props) {
   useEffect(()=> {
     // get request for user data with redux 
     props.fetchData()
+    props.fetchPosts()
 }, []) 
 
 const signOutSubmit = e => {
@@ -44,21 +46,25 @@ const signOutSubmit = e => {
      {// <Nav /> Stacey' nav (not used) ]
      }
       <Switch>
-      <Route exact path='/'>
-        <Login user={props.user} />
-      </Route>  
-      <Route path="/signup">
-        <Register />
-      </Route> 
-      <Route exact path='/dashboard'>
-        <Dashboard />
-      </Route>
-      <Route exact path='/post'>
-        <AddPost />
-      </Route>
-      <Route exact patj='/usercard'>
-        <UserCard />
-      </Route>
+
+        <PrivateRoute  path='/dashboard'  component={Dashboard} />
+
+        <Route exact path='/'>
+          <Login user={props.user} />
+        </Route>  
+
+        <Route path="/signup">
+          <Register />
+        </Route> 
+
+        <Route  path="/addpost">
+            <AddPost /> 
+        </Route>
+        
+        <Route path="/updatepost/:id">
+          <UpdatePost />
+        </Route>
+           
       </Switch>
 
       <Footer />
@@ -76,5 +82,5 @@ const mapStateToProps = state => {
 }
 export default connect(
   mapStateToProps,
-  { fetchData }
+  { fetchData, fetchPosts }
 )(App);
