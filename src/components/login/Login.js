@@ -156,7 +156,7 @@ function Login() {
                         placeholder='Enter a Password'
                     />
                     <div className="error">{formErrors.password}</div>
-                    <Button disabled={disabled}>Submit</Button> 
+                    <Btn>Submit</Btn> 
                     
                 </div>
             </LoginDiv>

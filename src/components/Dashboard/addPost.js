@@ -1,10 +1,12 @@
 import React , {useState} from 'react'
 import './addPost.css'
+import axiosWithAuth from '../../utils/axiosWithAuth'
+import { useHistory } from 'react-router-dom'
 
 
 
 const initialFormValues = {
-    image_url:"",
+    img_url:"",
     title:"",
     description:"",
     location:"",
@@ -12,8 +14,12 @@ const initialFormValues = {
     
 }
 
+
 function AddPost() {
  const[post, setPost] =  useState(initialFormValues)
+ // add the new state to get the newPost 
+ const  [newPost, setNewPost] = useState([]);
+ const { push } = useHistory();
 
  const onInputChange = e => {
     const { name, value } = e.target;
@@ -21,6 +27,24 @@ function AddPost() {
         ...post,
         [name]: value
     })
+    setNewPost({
+        ...newPost,
+        [name]: value
+    })
+ }
+
+ const addPostSubmit = e => {
+     e.preventDefault()
+     axiosWithAuth()
+     .post(`https://expat-journal-web31.herokuapp.com/api/posts`, post)
+     .then(res => {
+         setNewPost(res.data)
+         console.log(res.data)
+         push('/dashboard')
+         
+     })
+     .catch(err => console.log(err))
+
  }
 
     return(
@@ -33,7 +57,7 @@ function AddPost() {
     <input 
     name="title"
     type="text"
-    value=""
+    value={post.title}
     onChange={onInputChange}
      />
      <br />
@@ -43,25 +67,26 @@ function AddPost() {
 name="location"
 type="text" 
 id="postBody"
+onChange={onInputChange}
 
 />
 <br />
-<label htmlFor="image_url">Select an Image</label>
+<label htmlFor="img_url">Select an Image</label>
 <br />
-<input type="file"
- name='image_url'
-value=""
-onChange="" /> 
+<input type="text"
+    name='img_url'
+    value={post.img_url} // add value to the form 
+    onChange={onInputChange} /> 
  <br /> 
     <label htmlFor="description">Post </label> 
     <br />
     <textarea
     name="description"
-    value=""
-    onChange=""
+    value={post.description}
+    onChange={onInputChange} // add the handlechange to the form as well // Khwanchai
     />
     <br />
-<button>Submit</button>
+<button onClick={addPostSubmit} >Submit</button>
 </form>
 </div>
         </div>
