@@ -1,10 +1,12 @@
 import React, { useEffect,useState } from 'react';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 
 const UserCard = () => {
     const [data, setData] = useState([])
+    const { push } = useHistory()
 
     const PostDiv = styled.div`
     color: whitesmoke;
@@ -17,6 +19,9 @@ const UserCard = () => {
     margin-top: 5%;
     /* border: dashed whitesmoke 2px; */
     `
+    const onSubmit = () => {
+        push('/dashboard')
+    }
 
     useEffect(() => {
         axiosWithAuth()
@@ -32,7 +37,7 @@ const UserCard = () => {
                 {data.map(item => (
                     <PostDiv>
                     <div key={item.key}>
-                    <img src={item.img_url}alt='Expats Experience' />
+                    <img src={item.img_url}alt='Expats Journals' />
                     <h4>{item.title}</h4>
                     <h5>User: {item.username}</h5>
                     <h6>{item.desciption}</h6>
@@ -40,6 +45,8 @@ const UserCard = () => {
                     </div>
                 </PostDiv>
                 ))}
+                <br></br>
+                <button onClick={onSubmit}>Click here to post a journal entry</button>
             </div>
     )
 }
