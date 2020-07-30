@@ -30,7 +30,7 @@ const UserCard = () => {
             console.log(response)
             setData(response.data)
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log("Your'e probably not logged in..", error))
     }, [])
     return (
             <div>
