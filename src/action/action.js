@@ -1,6 +1,7 @@
 // create action for redux. need improve or waiting for some code done. 
 
 import axios from 'axios'
+import axiosWithAuth from '../utils/axiosWithAuth';
 
 export const FETCH_DATA_START = "FETCH_DATA_START";
 export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
@@ -19,3 +20,5 @@ export const fetchData = () => {
     }
 
 }
+
+

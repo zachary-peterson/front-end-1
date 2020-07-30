@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
-import {fetchPosts} from '../../action/fetchPosts'
+import {fetchPosts} from '../../action/actions'
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios'
@@ -53,11 +53,13 @@ const getPost = () => {
        fetchPosts()
     }, [])
 
-    const deletePost = () => {
+    const deletePost = props => {
         axiosWithAuth()
-        .delete(`https://expat-journal-web31.herokuapp.com/api/posts/${posts.id}`)
+        .delete(`https://expat-journal-web31.herokuapp.com/api/posts/${props.id}`)
         .then(res => {
-            setPost(posts.filter(post => post.id !==posts.id))
+            push('/dashboard')
+            window.location.reload()
+            return res.data
         })
 
     }
@@ -76,8 +78,8 @@ const getPost = () => {
                         <h5>{post.username}</h5>
                         <h6>{post.description}</h6>
                         <h6>{post.location}</h6>
-                        <button className="update-button" onClick={() => push(`/updatepost/${params.id}`)}>Update Post</button>
-                        <button onClick={deletePost}>Delete Post</button>
+                        <button className="update-button" onClick={() => push(`/updatepost/${post.id}`)}>Update Post</button>
+                        <button onClick={() => deletePost(post)}>Delete Post</button>
                         </div>
                 </PostDiv>
                
