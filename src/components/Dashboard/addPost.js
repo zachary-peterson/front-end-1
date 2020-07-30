@@ -1,5 +1,6 @@
-import React , {useState} from 'react'
-import './addPost.css'
+import React , {useState} from 'react';
+import './addPost.css';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -13,6 +14,7 @@ const initialFormValues = {
 }
 
 function AddPost() {
+ const { push } = useHistory()
  const[post, setPost] =  useState(initialFormValues)
 
  const onInputChange = e => {
@@ -63,6 +65,8 @@ onChange="" />
     <br />
 <button>Submit</button>
 </form>
+<br></br>
+<button onClick={() => push('/usercard')}>View Posts</button>
 </div>
         </div>
     )
