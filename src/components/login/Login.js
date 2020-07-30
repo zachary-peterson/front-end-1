@@ -7,7 +7,6 @@ import './Login.css';
 import styled from 'styled-components'
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios'
 
 import { TweenMax, Power3 } from 'gsap'
 
@@ -57,7 +56,7 @@ function Login() {
     const [user, setUser] = useState([]);
     const [formErrors, setErrors] = useState(initialErrors)
     const [formValues, setFormValues] = useState(initialVal)
-    const [disabled, setDisabled] = useState(true)
+    const [disabled, setDisabled] = useState(false)
 
     const { push } = useHistory();
 

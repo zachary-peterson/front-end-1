@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './UserCard.css';
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-  } from 'reactstrap';
 import { connect } from 'react-redux'
 import {fetchPosts} from '../../action/fetchPosts'
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import UpdatePost from './updatePost'
+import styled from 'styled-components'
 
 
 const initialFormValues = {
@@ -20,6 +16,18 @@ const initialFormValues = {
 }
 const UserCard = props => {
 
+    const PostDiv = styled.div`
+    color: whitesmoke;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 75%;
+    text-align: center;
+    margin-left: 12%;
+    margin-top: 5%;
+    /* border: dashed whitesmoke 2px; */
+    `
+
 
     const [posts, setPost] =  useState([])
     const [editPost, setEditPost] = useState(initialFormValues)
@@ -28,9 +36,9 @@ const UserCard = props => {
     console.log(props)
 
     
-const getPost = (id) => {
+const getPost = () => {
     axiosWithAuth()
-    .get(`https://expat-journal-web31.herokuapp.com/api/posts/${id}`)
+    .get(`https://expat-journal-web31.herokuapp.com/api/posts/allposts/`)
     .then(res => {
         console.log(res)
         setPost(res.data)
@@ -55,30 +63,29 @@ const getPost = (id) => {
     }
 
     return (
-        <div>
             <div>
 
                 {
                     props.posts.map(post => (
                         <div>
                             {/* <p>{post.title} </p> */}
-                    <Card >
-                        <p>{post.id} </p>
-                        <CardImg src={post.img_url} />
-                        <CardTitle>{post.username}</CardTitle>
-                        <CardTitle>{post.title}</CardTitle>
-                        <CardText>{post.description}</CardText>
-                        <CardSubtitle>{post.location}</CardSubtitle>
+                    <PostDiv >
+                        <div key={post.key}>
+                        <img src={post.img_url} alt ='Expat Journal'/>
+                        <h4>{post.title}</h4>
+                        <h5>{post.username}</h5>
+                        <h6>{post.description}</h6>
+                        <h6>{post.location}</h6>
                         <button className="update-button" onClick={() => push(`/updatepost/${params.id}`)}>Update Post</button>
                         <button onClick={deletePost}>Delete Post</button>
-                </Card>
+                        </div>
+                </PostDiv>
                
                         </div>
                     ))
                 }
                 
             </div>
-        </div>
     )
 }
 const mapStateToProps = state => {

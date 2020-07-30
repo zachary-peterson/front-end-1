@@ -1,13 +1,13 @@
 import React, { useEffect,useState } from 'react';
 import './App.css';
-import { NavWrap, Button } from './components/Nav'
+import { NavWrap, Button } from './components/Nav';
 import Login from './components/login/Login';
 import Footer from './components/Footer';
-import { Switch, Route, useHistory, NavLink, Link} from 'react-router-dom'
-import Register from './components/sign-up/Register'
-import { connect } from 'react-redux'
+import { Switch, Route, useHistory, NavLink, Link} from 'react-router-dom';
+import Register from './components/sign-up/Register';
+import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
-import { fetchData } from './action/action'
+import { fetchData } from './action/action';
 import { fetchPosts } from './action/fetchPosts';
 import AddPost from './components/Dashboard/addPost'
 import UpdatePost from './components/Dashboard/updatePost'
@@ -37,10 +37,10 @@ const signOutSubmit = e => {
       <header>
         <NavWrap>
             <Button><a className="linkStyle" href="https://expatmarketing.netlify.app/index.html">Home</a></Button>
-            <Button><NavLink className="linkStyle" to="/">Login</NavLink></Button>
+            <Button><NavLink className="linkStyle" to="/login">Login</NavLink></Button>
             <Button><NavLink className="linkStyle" to="/signup">Sign Up</NavLink> </Button>
             <Button onClick={signOutSubmit} ><NavLink className="linkStyle" to="/">log out</NavLink> </Button>
-            <Link id='home' exact to='/dashboard'>Dashboard</Link>
+            <Link id='home' exact to="/dashboard">Dashboard</Link>
         </NavWrap>
       </header>
      {// <Nav /> Stacey' nav (not used) ]
@@ -49,7 +49,7 @@ const signOutSubmit = e => {
 
         <PrivateRoute  path='/dashboard'  component={Dashboard} />
 
-        <Route exact path='/'>
+        <Route exact path='/login'>
           <Login user={props.user} />
         </Route>  
 
