@@ -4,6 +4,7 @@ import axiosWithAuth from "./utils/axiosWithAuth";
 import UserCard from './components/Dashboard/UserCard'
 import AddPost from './components/Dashboard/addPost'
 import { Switch, Route, useHistory, NavLink, Link} from 'react-router-dom'
+import Search from './components/Dashboard/searchBar'
 
 const Dashboard = (props) => {
     const [data, setData] = useState([])
@@ -19,11 +20,12 @@ const Dashboard = (props) => {
     return (
        
         <div> 
-            <NavLink to="/addpost">Post</NavLink> 
+            <NavLink to="/addpost"> Add Post</NavLink> 
             <Route  path="/addpost">
                <AddPost /> 
             </Route>
                 <UserCard />
+                <Search  posts={data}/>
 {/*             
             {data.map(post => (
                 <UserCard />
