@@ -1,12 +1,12 @@
-import React,{ useEffect, useState } from 'react';
-import fetchPosts from "./action/fetchPosts"
-import axiosWithAuth from "./utils/axiosWithAuth";
+import React,{ useState, useEffect } from 'react';
 import UserCard from './components/Dashboard/UserCard'
 import AddPost from './components/Dashboard/addPost'
 import { Switch, Route, useHistory, NavLink, Link} from 'react-router-dom'
+import axiosWithAuth from './utils/axiosWithAuth'
 
 const Dashboard = (props) => {
     const [data, setData] = useState([])
+    const { push } = useHistory()
     useEffect(() => {
         axiosWithAuth()
         .get('https://expat-journal-web31.herokuapp.com/api/posts')
@@ -16,10 +16,14 @@ const Dashboard = (props) => {
         })
         .catch(error => console.log(error))
     }, [])
+
+    const onSubmit = () => {
+        push('/addpost')
+    }
     return (
        
         <div> 
-            <NavLink to="/addpost">Post</NavLink> 
+            <button onClick={onSubmit}>AddPost</button> 
             <Route  path="/addpost">
                <AddPost /> 
             </Route>

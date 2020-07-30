@@ -28,7 +28,6 @@ const UpdatePost = props => {
             .catch(err => {
                 console.log(err)
             })
-        
     }, []);
 
   const handleChange = evt =>{
