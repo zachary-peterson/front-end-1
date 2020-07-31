@@ -8,10 +8,11 @@ import Register from './components/sign-up/Register';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
 import { fetchData } from './action/action';
-import { fetchPosts } from './action/fetchPosts';
+import { fetchPosts, editPost } from './action/actions';
 import AddPost from './components/Dashboard/addPost'
 import UpdatePost from './components/Dashboard/updatePost'
 import PrivateRoute from './components/PrivateRoute';
+
 
 function App(props) {
   const [isFetchingData, setIsFetchingData] = useState(false)
@@ -62,7 +63,7 @@ const signOutSubmit = e => {
         </Route>
         
         <Route path="/updatepost/:id">
-          <UpdatePost />
+          <UpdatePost editPost={editPost}/>
         </Route>
            
       </Switch>

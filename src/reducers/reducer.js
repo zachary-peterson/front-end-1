@@ -1,5 +1,6 @@
 import { FETCH_DATA_START, FETCH_DATA_SUCCESS } from '../action/action'
-import { FETCH_POSTDATA_START, FETCH_POSTDATA_SUCCESS } from '../action/fetchPosts'
+import { FETCH_POSTDATA_START, FETCH_POSTDATA_SUCCESS, EDIT_POST, ADD_POST, DELETE_POST } from '../action/actions'
+
 
 // This is the intial file for our reducer functions
 // export function reducer(){
@@ -39,6 +40,16 @@ export const reducer = ( state = initialState, action ) => {
                     posts : action.payload,
                     error: ""
                 }
+            case EDIT_POST:
+                return{
+                    ...state,
+                    posts: action.payload
+                }
+            case DELETE_POST:
+                return {
+                    ...state,
+                    posts: action.payload
+                }    
         
         default: 
         return state;
