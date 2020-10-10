@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import * as yup from 'yup';
 import styled from 'styled-components';
 import registerFormSchema from '../../validation/registerFormSchema'
-
+import { TweenMax, Power3 } from 'gsap';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import axios from 'axios'
 import { fetchData } from '../../action/action'
@@ -25,6 +25,7 @@ const initialErrors = {
 };
 
 const StyledContainer = styled.form`
+    opacity: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,7 +81,7 @@ const StyledContainer = styled.form`
 function Register(props){
 
     const { push } = useHistory();
-
+    let formAnim = useRef(null);
     const [user, setUser] =useState([]);
     const [formValues, setForm]=useState(initialVal);
     const [formErrors, setErrors]=useState(initialErrors);
@@ -131,9 +132,20 @@ function Register(props){
 
     }
 
+    useEffect(() => {
+        TweenMax.to(
+            formAnim,
+            5,
+            {
+                opacity: 1,
+                y: -20,
+                ease: Power3.easeOut
+            }
+        )
+    })
 
     return (
-        <StyledContainer>  
+        <StyledContainer ref={el => { formAnim = el }}>  
 
             <h2>Sign Up</h2>
         

@@ -37,7 +37,7 @@ const signOutSubmit = e => {
     <div className="App">
       <header>
         <NavWrap>
-            <Button><a className="linkStyle" href="https://expatmarketing.netlify.app/index.html">Home</a></Button>
+            {/* <Button><a className="linkStyle" href="https://expatmarketing.netlify.app/index.html">Home</a></Button> */}
             <Button><NavLink className="linkStyle" to="/">Login</NavLink></Button>
             <Button><NavLink className="linkStyle" to="/signup">Sign Up</NavLink> </Button>
             <Button onClick={signOutSubmit} ><NavLink className="linkStyle" to="/">log out</NavLink> </Button>

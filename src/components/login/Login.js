@@ -16,6 +16,7 @@ const LoginDiv = styled.form`
     flex-direction: column;
     opacity: 0;
     margin: 0% 36% 20%;
+    margin-bottom: 21.5%;
     height: 60%;
     background: rgba(55, 90, 66, 0.616);
     padding-top: 4.5%;
@@ -159,6 +160,7 @@ function Login() {
                     
                 </div>
             </LoginDiv>
+            <div class="push"></div>
         </div>
     )
 }
